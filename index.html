@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffe6f0;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    h1 {
+      color: #d63384;
+      font-size: 2.5em;
+    }
+
+    .buttons {
+      margin-top: 40px;
+      position: relative;
+      height: 200px;
+    }
+
+    button {
+      font-size: 1.2em;
+      padding: 12px 24px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: #6c757d;
+      color: white;
+      position: absolute;
+    }
+
+    #message {
+      margin-top: 40px;
+      font-size: 1.5em;
+      color: #c2185b;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Will you be my Valentine? ❤️</h1>
+
+  <div class="buttons" id="buttonArea">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+
+  <div id="message">Yay! I love you! 💖</div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const area = document.getElementById("buttonArea");
+    const yesBtn = document.getElementById("yesBtn");
+    const message = document.getElementById("message");
+
+    // Move "No" button on hover
+    noBtn.addEventListener("mouseover", () => {
+      const areaRect = area.getBoundingClientRect();
+      const maxX = areaRect.width - noBtn.offsetWidth;
+      const maxY = areaRect.height - noBtn.offsetHeight;
+
+      const newX = Math.random() * maxX;
+      const newY = Math.random() * maxY;
+
+      noBtn.style.left = newX + "px";
+      noBtn.style.top = newY + "px";
+    });
+
+    yesBtn.addEventListener("click", () => {
+      message.style.display = "block";
+    });
+  </script>
+
+</body>
+</html>
