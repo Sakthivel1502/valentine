@@ -4,26 +4,32 @@
   <meta charset="UTF-8" />
   <title>For My Love</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: "Segoe UI", cursive, sans-serif;
-      background: #111;
+      background: #000;
       color: white;
       text-align: center;
     }
 
-    .photo-section {
+    /* Full photo section */
+    .photo {
       width: 100%;
-      height: 70vh;
-      background: url("background.jpg") center top / contain no-repeat;
-      background-color: #111;
+      height: 80vh;
+      background: url("background.jpg") center center / contain no-repeat;
+      background-color: #000;
     }
 
-    .container {
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      padding: 40px 20px;
-      border-top-left-radius: 30px;
-      border-top-right-radius: 30px;
+    /* Romantic overlay section */
+    .content {
+      background: linear-gradient(135deg, #ff4d6d, #ff758c);
+      padding: 40px 20px 60px;
+      border-top-left-radius: 40px;
+      border-top-right-radius: 40px;
       margin-top: -40px;
     }
 
@@ -34,22 +40,24 @@
 
     p {
       font-size: 1.2em;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
 
     .buttons {
       position: relative;
-      height: 120px;
+      height: 150px;
+      max-width: 300px;
+      margin: 0 auto;
     }
 
     button {
       font-size: 1.2em;
-      padding: 12px 28px;
-      margin: 10px;
+      padding: 14px 30px;
       border: none;
       border-radius: 30px;
       cursor: pointer;
       transition: transform 0.2s;
+      position: absolute;
     }
 
     button:hover {
@@ -57,32 +65,36 @@
     }
 
     #yesBtn {
-      background: #ff4d6d;
-      color: white;
+      background: white;
+      color: #ff4d6d;
+      left: 20px;
+      top: 40px;
     }
 
     #noBtn {
-      background: #555;
+      background: #333;
       color: white;
-      position: absolute;
+      left: 160px;
+      top: 40px;
     }
 
     #message {
       display: none;
-      margin-top: 20px;
-      font-size: 1.5em;
+      margin-top: 30px;
+      font-size: 1.6em;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-<div class="photo-section"></div>
+<div class="photo"></div>
 
-<div class="container">
+<div class="content">
   <h1>My Love ❤️</h1>
   <p>
-    Every moment with you is my favorite memory.<br>
-    So I just have one question…
+    Every day with you is the best day of my life.<br>
+    So I just want to ask…
   </p>
 
   <h2>Will you be my Valentine?</h2>
@@ -93,7 +105,7 @@
   </div>
 
   <div id="message">
-    You just made my world brighter. I love you forever. 💕
+    You just made me the happiest person alive. I love you forever. 💕
   </div>
 </div>
 
@@ -103,7 +115,7 @@
   const yesBtn = document.getElementById("yesBtn");
   const message = document.getElementById("message");
 
-  noBtn.addEventListener("mouseover", () => {
+  function moveNoButton() {
     const areaRect = area.getBoundingClientRect();
     const maxX = areaRect.width - noBtn.offsetWidth;
     const maxY = areaRect.height - noBtn.offsetHeight;
@@ -113,6 +125,15 @@
 
     noBtn.style.left = newX + "px";
     noBtn.style.top = newY + "px";
+  }
+
+  // Move on hover (desktop)
+  noBtn.addEventListener("mouseenter", moveNoButton);
+
+  // Move on touch (mobile)
+  noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    moveNoButton();
   });
 
   yesBtn.addEventListener("click", () => {
