@@ -22,19 +22,21 @@
       width: 100%;
     }
 
-    /* Left: slideshow */
+    /* Slideshow */
     .slideshow {
       flex: 1;
-      position: relative;
       background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
       overflow: hidden;
     }
 
     .slide {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+      max-width: 90%;
+      max-height: 90%;
       opacity: 0;
       transition: opacity 2s ease-in-out;
     }
@@ -43,7 +45,7 @@
       opacity: 1;
     }
 
-    /* Right: question panel */
+    /* Right panel */
     .content {
       flex: 1;
       background: linear-gradient(135deg, #ff4d6d, #ff758c);
@@ -63,13 +65,20 @@
 
     p {
       font-size: 1.3em;
+      margin-bottom: 20px;
+    }
+
+    .date {
+      font-size: 1.1em;
+      opacity: 0.9;
       margin-bottom: 30px;
     }
 
     .buttons {
-      position: relative;
-      height: 150px;
-      width: 260px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
     }
 
     button {
@@ -78,7 +87,8 @@
       border: none;
       border-radius: 30px;
       cursor: pointer;
-      position: absolute;
+      background: white;
+      color: #ff4d6d;
       transition: transform 0.2s;
     }
 
@@ -86,28 +96,27 @@
       transform: scale(1.1);
     }
 
-    #yesBtn {
-      background: white;
-      color: #ff4d6d;
-      left: 0;
-      top: 40px;
-    }
-
-    #noBtn {
-      background: #333;
+    /* Love letter screen */
+    .love-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #ff4d6d, #ff758c);
       color: white;
-      right: 0;
-      top: 40px;
-    }
-
-    #message {
       display: none;
-      margin-top: 30px;
-      font-size: 1.6em;
-      font-weight: bold;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+      z-index: 10;
     }
 
-    /* Mobile layout */
+    .love-box {
+      max-width: 600px;
+      font-size: 1.5em;
+      line-height: 1.6;
+    }
+
+    /* Mobile */
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -132,7 +141,7 @@
 
 <div class="container">
 
-  <!-- Left: slideshow -->
+  <!-- Slideshow -->
   <div class="slideshow">
     <img class="slide active" src="photo1.jpg">
     <img class="slide" src="photo2.jpg">
@@ -140,9 +149,11 @@
     <img class="slide" src="photo4.jpg">
   </div>
 
-  <!-- Right: question -->
+  <!-- Right panel -->
   <div class="content">
-    <h1>My Love ❤️</h1>
+    <h1>Sakthivel ❤️ Muthumarish</h1>
+    <div class="date">Since 22/05/2023</div>
+
     <p>
       Every memory with you is my favorite one.<br>
       And I want a lifetime more…
@@ -150,20 +161,41 @@
 
     <h2>Will you be my Valentine?</h2>
 
-    <div class="buttons" id="buttonArea">
-      <button id="yesBtn">Yes 💖</button>
-      <button id="noBtn">No 🙈</button>
-    </div>
-
-    <div id="message">
-      You just made me the happiest person alive. I love you forever. 💕
+    <div class="buttons">
+      <button class="yesOption">Yes 💖</button>
+      <button class="yesOption">Yes Only 😌</button>
     </div>
   </div>
 
 </div>
 
+<!-- Love letter screen -->
+<div class="love-screen" id="loveScreen">
+  <div class="love-box">
+    <h1>My Dearest Muthumarish ❤️</h1>
+    <p>
+      From the moment you came into my life on 22/05/2023,<br>
+      every day has been brighter, warmer, and more meaningful.
+    </p>
+    <p>
+      Your smile is my favorite sight,<br>
+      your voice is my favorite sound,<br>
+      and your love is my greatest blessing.
+    </p>
+    <p>
+      I promise to stand beside you,<br>
+      laugh with you, grow with you,<br>
+      and love you more with every passing day.
+    </p>
+    <p>
+      Forever yours,<br>
+      <strong>Sakthivel ❤️</strong>
+    </p>
+  </div>
+</div>
+
 <script>
-  // Slideshow logic
+  // Slideshow
   const slides = document.querySelectorAll(".slide");
   let index = 0;
 
@@ -173,36 +205,18 @@
     slides[index].classList.add("active");
   }, 6000);
 
-  // Button logic
-  const noBtn = document.getElementById("noBtn");
-  const area = document.getElementById("buttonArea");
-  const yesBtn = document.getElementById("yesBtn");
-  const message = document.getElementById("message");
+  // Yes buttons
+  const yesOptions = document.querySelectorAll(".yesOption");
+  const loveScreen = document.getElementById("loveScreen");
   const music = document.getElementById("bgMusic");
 
-  function moveNoButton() {
-    const areaRect = area.getBoundingClientRect();
-    const maxX = areaRect.width - noBtn.offsetWidth;
-    const maxY = areaRect.height - noBtn.offsetHeight;
-
-    const newX = Math.random() * maxX;
-    const newY = Math.random() * maxY;
-
-    noBtn.style.left = newX + "px";
-    noBtn.style.top = newY + "px";
-  }
-
-  noBtn.addEventListener("mouseenter", moveNoButton);
-  noBtn.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    moveNoButton();
+  yesOptions.forEach(button => {
+    button.addEventListener("click", () => {
+      loveScreen.style.display = "flex";
+    });
   });
 
-  yesBtn.addEventListener("click", () => {
-    message.style.display = "block";
-  });
-
-  // Start music after interaction
+  // Start music on interaction
   function startMusic() {
     music.play().catch(() => {});
     document.removeEventListener("click", startMusic);
